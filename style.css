@@ -1,0 +1,895 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCHOOL PORTAL — Master Stylesheet
+   Works for: Student, Admin, and Advisor layouts
+   Font: Outfit (display) + DM Sans (body)
+   Theme: Deep navy + crimson accent — authoritative, academic, clean
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+
+/* ── CSS Variables ─────────────────────────────────────────────────────── */
+:root {
+    /* Brand colours */
+    --primary:        #c0152a;   /* crimson — main accent */
+    --primary-dark:   #97101f;
+    --primary-light:  #fdecea;
+    --navy:           #0f1f3d;   /* deep navy — header / sidebar */
+    --navy-mid:       #1a3060;
+    --navy-light:     #e8edf5;
+
+    /* Neutrals */
+    --white:          #ffffff;
+    --surface:        #f7f8fc;
+    --border:         #dde3ef;
+    --text:           #1c2638;
+    --text-muted:     #6b7a99;
+
+    /* Role accent colours (used for role badges / highlights) */
+    --student-color:  #1a7fd4;
+    --advisor-color:  #0d9e6e;
+    --admin-color:    #c0152a;
+
+    /* Status colours */
+    --success:        #0d9e6e;
+    --success-bg:     #e6f7f2;
+    --error:          #c0152a;
+    --error-bg:       #fdecea;
+    --warning:        #d97706;
+    --warning-bg:     #fef3c7;
+    --info:           #1a7fd4;
+    --info-bg:        #e7f3fd;
+
+    /* Spacing & shape */
+    --radius-sm:      4px;
+    --radius:         8px;
+    --radius-lg:      14px;
+    --shadow-sm:      0 1px 4px rgba(15,31,61,.08);
+    --shadow:         0 4px 16px rgba(15,31,61,.10);
+    --shadow-lg:      0 8px 32px rgba(15,31,61,.14);
+
+    /* Sidebar */
+    --sidebar-width:  260px;
+    --header-height:  64px;
+
+    /* Transitions */
+    --transition:     0.22s ease;
+}
+
+/* ── Reset & Base ──────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--surface);
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--navy);
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img { display: block; max-width: 100%; }
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: var(--header-height);
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+
+header h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+header h1 span {
+    color: var(--primary);
+}
+
+/* Role badge shown in header (optional) */
+.header-role-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1.5px solid rgba(255,255,255,.25);
+    color: #fff;
+}
+
+.header-role-badge.admin   { border-color: var(--admin-color);   color: #ff7c8a; }
+.header-role-badge.advisor { border-color: var(--advisor-color); color: #4dd9a8; }
+.header-role-badge.student { border-color: var(--student-color); color: #7ec4f8; }
+
+/* ── Layout Shell ──────────────────────────────────────────────────────── */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    gap: 0;
+    min-height: calc(100vh - var(--header-height) - 50px);
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 28px 24px;
+    gap: 24px;
+}
+
+/* ── Sidebar ───────────────────────────────────────────────────────────── */
+.sidebar {
+    background: var(--navy);
+    border-radius: var(--radius-lg);
+    padding: 24px 0;
+    box-shadow: var(--shadow);
+    align-self: start;
+    position: sticky;
+    top: calc(var(--header-height) + 28px);
+}
+
+.sidebar-header {
+    padding: 0 20px 16px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    margin-bottom: 10px;
+}
+
+.sidebar h3 {
+    color: rgba(255,255,255,.45);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 0 20px;
+    margin-bottom: 6px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0 10px;
+}
+
+.sidebar li { margin: 2px 0; }
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 11px 14px;
+    color: rgba(255,255,255,.72);
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background var(--transition), color var(--transition);
+    text-decoration: none;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: rgba(192,21,42,.22);
+    color: #fff;
+    text-decoration: none;
+}
+
+.sidebar a.active {
+    background: var(--primary);
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Role-specific sidebar accent colours */
+.sidebar.advisor a.active { background: var(--advisor-color); }
+.sidebar.admin   a.active { background: var(--admin-color);   }
+
+.sidebar-divider {
+    height: 1px;
+    background: rgba(255,255,255,.08);
+    margin: 10px 20px;
+}
+
+/* ── Main Content ──────────────────────────────────────────────────────── */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+}
+
+/* ── Welcome Card ──────────────────────────────────────────────────────── */
+.welcome-card {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-card::after {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(192,21,42,.18);
+    pointer-events: none;
+}
+
+.welcome-card h2 {
+    color: #fff;
+    font-size: 1.55rem;
+    margin-bottom: 6px;
+}
+
+.welcome-card p {
+    color: rgba(255,255,255,.72);
+    font-size: 0.9rem;
+    margin: 3px 0;
+}
+
+.welcome-card strong { color: #fff; }
+
+/* ── Profile Image ─────────────────────────────────────────────────────── */
+.profile-image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+
+.profile-image img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary);
+    box-shadow: 0 0 0 4px rgba(192,21,42,.15);
+}
+
+/* Large variant for profile page */
+.profile-image.lg img {
+    width: 130px;
+    height: 130px;
+}
+
+/* ── User Info Block ───────────────────────────────────────────────────── */
+.user-info {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+}
+
+.user-info p {
+    margin: 5px 0;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.user-info strong {
+    color: var(--navy);
+    font-weight: 600;
+}
+
+/* ── Cards Grid ────────────────────────────────────────────────────────── */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    padding: 22px;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), box-shadow var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--primary);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+/* Role-tinted top border */
+.card.advisor::before { background: var(--advisor-color); }
+.card.admin::before   { background: var(--admin-color); }
+.card.info-card::before  { background: var(--info); }
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: var(--navy);
+}
+
+.card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+}
+
+.card a {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background var(--transition);
+}
+
+.card a:hover { background: var(--primary-dark); text-decoration: none; }
+
+/* Stat cards (used on Admin/Advisor dashboards) */
+.stat-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    padding: 22px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-card .stat-icon {
+    font-size: 2rem;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius);
+    background: var(--navy-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-card .stat-value {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1;
+}
+
+.stat-card .stat-label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 3px;
+}
+
+/* ── Profile Section Blocks ────────────────────────────────────────────── */
+.profile-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px 28px;
+    box-shadow: var(--shadow-sm);
+}
+
+.profile-section h3 {
+    font-size: 1rem;
+    color: var(--navy);
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid var(--navy-light);
+}
+
+/* ── Forms ─────────────────────────────────────────────────────────────── */
+.profile-section label,
+.course-form label,
+form label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 5px;
+    margin-top: 14px;
+}
+
+.profile-section label:first-of-type,
+.course-form label:first-of-type { margin-top: 0; }
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="file"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px 13px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--surface);
+    transition: border-color var(--transition), box-shadow var(--transition);
+    box-sizing: border-box;
+    margin-bottom: 4px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(192,21,42,.10);
+    background: var(--white);
+}
+
+input[type="file"] {
+    padding: 8px;
+    background: var(--white);
+    cursor: pointer;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+/* Login / Register container */
+.container {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 36px 40px;
+    max-width: 420px;
+    margin: 60px auto;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+}
+
+.container h2 {
+    margin-bottom: 24px;
+    font-size: 1.5rem;
+}
+
+.container form input[type="submit"],
+.container form button[type="submit"] {
+    width: 100%;
+    padding: 11px;
+    margin-top: 8px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background var(--transition);
+    letter-spacing: .02em;
+}
+
+.container form input[type="submit"]:hover,
+.container form button[type="submit"]:hover {
+    background: var(--primary);
+}
+
+/* ── Buttons ───────────────────────────────────────────────────────────── */
+.submit-btn,
+button.submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 22px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.submit-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+.cancel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 22px;
+    background: var(--border);
+    color: var(--text);
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--transition);
+}
+
+.cancel-btn:hover { background: #c5cfe0; }
+
+.btn-navy {
+    background: var(--navy);
+    color: #fff;
+    padding: 10px 22px;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background var(--transition);
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-navy:hover { background: var(--navy-mid); text-decoration: none; }
+
+.add-course-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 20px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background var(--transition);
+}
+
+.add-course-btn:hover { background: var(--primary); }
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+/* ── Alerts / Flash Messages ───────────────────────────────────────────── */
+.alert {
+    padding: 13px 18px;
+    border-radius: var(--radius);
+    margin-bottom: 18px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border: 1px solid transparent;
+}
+
+.alert-success { background: var(--success-bg); color: #065f46; border-color: #a7f3d0; }
+.alert-error   { background: var(--error-bg);   color: #7f1d1d; border-color: #fca5a5; }
+.alert-warning { background: var(--warning-bg); color: #78350f; border-color: #fcd34d; }
+.alert-info    { background: var(--info-bg);    color: #1e40af; border-color: #93c5fd; }
+
+/* Inline paragraph variants */
+.success { color: var(--success); }
+.error   { color: var(--error);   }
+
+/* ── Courses Grid ──────────────────────────────────────────────────────── */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.course-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), box-shadow var(--transition);
+    position: relative;
+}
+
+.course-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--primary);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.course-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.course-card h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.course-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 4px 0;
+}
+
+.course-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+}
+
+.edit-btn, .delete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 14px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background var(--transition), transform var(--transition);
+}
+
+.edit-btn   { background: #dbeafe; color: #1d4ed8; }
+.edit-btn:hover   { background: #bfdbfe; transform: translateY(-1px); text-decoration: none; }
+
+.delete-btn { background: #fee2e2; color: #b91c1c; }
+.delete-btn:hover { background: #fecaca; transform: translateY(-1px); text-decoration: none; }
+
+/* ── Course Form ───────────────────────────────────────────────────────── */
+.course-form {
+    background: var(--navy-light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.course-form h3 {
+    margin-bottom: 16px;
+    font-size: 1rem;
+}
+
+/* ── Data Table ────────────────────────────────────────────────────────── */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin-top: 8px;
+}
+
+.data-table th {
+    background: var(--navy);
+    color: rgba(255,255,255,.85);
+    padding: 11px 14px;
+    text-align: left;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.data-table th:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+.data-table th:last-child  { border-radius: 0 var(--radius) var(--radius) 0; }
+
+.data-table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: middle;
+}
+
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--navy-light); }
+
+/* ── Role Badges ───────────────────────────────────────────────────────── */
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.badge-student { background: #dbeafe; color: #1d4ed8; }
+.badge-advisor { background: #d1fae5; color: #065f46; }
+.badge-admin   { background: #fee2e2; color: #991b1b; }
+.badge-pending  { background: #fef3c7; color: #92400e; }
+.badge-approved { background: #d1fae5; color: #065f46; }
+
+/* ── Empty State ───────────────────────────────────────────────────────── */
+.empty-state {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.empty-state p { margin: 8px 0; }
+
+/* ── Recent Activity Card ──────────────────────────────────────────────── */
+.activity-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.activity-card p { margin: 4px 0; font-size: 0.9rem; }
+.activity-card .activity-time { color: var(--text-muted); font-size: 0.8rem; margin-top: 6px; }
+
+/* ── Page Section Title ────────────────────────────────────────────────── */
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--navy-light);
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+footer {
+    text-align: center;
+    padding: 18px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+    background: var(--white);
+}
+
+/* ── Admin-specific ────────────────────────────────────────────────────── */
+
+/* Admin overview banner */
+.admin-banner {
+    background: linear-gradient(135deg, #0f1f3d 0%, #1e3a6e 100%);
+    color: #fff;
+    border-radius: var(--radius-lg);
+    padding: 24px 32px;
+    margin-bottom: 4px;
+}
+
+.admin-banner h2 { color: #fff; margin-bottom: 4px; }
+.admin-banner p  { color: rgba(255,255,255,.65); font-size: 0.88rem; }
+
+/* Table action buttons */
+.tbl-btn {
+    padding: 5px 12px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--transition);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.tbl-btn-edit   { background: #dbeafe; color: #1d4ed8; }
+.tbl-btn-edit:hover   { background: #bfdbfe; text-decoration: none; }
+.tbl-btn-delete { background: #fee2e2; color: #b91c1c; }
+.tbl-btn-delete:hover { background: #fecaca; text-decoration: none; }
+.tbl-btn-view   { background: #d1fae5; color: #065f46; }
+.tbl-btn-view:hover   { background: #a7f3d0; text-decoration: none; }
+
+/* Search / filter bar */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.filter-bar input[type="text"],
+.filter-bar select {
+    width: auto;
+    flex: 1;
+    min-width: 180px;
+    margin-bottom: 0;
+}
+
+/* ── Advisor-specific ──────────────────────────────────────────────────── */
+.advisor-banner {
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+    color: #fff;
+    border-radius: var(--radius-lg);
+    padding: 24px 32px;
+}
+
+.advisor-banner h2 { color: #fff; margin-bottom: 4px; }
+.advisor-banner p  { color: rgba(255,255,255,.65); font-size: 0.88rem; }
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .sidebar {
+        position: static;
+        padding: 16px 0;
+    }
+
+    .sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 0 10px;
+    }
+
+    .sidebar li { margin: 0; }
+
+    .sidebar a {
+        padding: 8px 12px;
+        font-size: 0.82rem;
+    }
+}
+
+@media (max-width: 600px) {
+    header { padding: 0 16px; }
+    header h1 { font-size: 1rem; }
+
+    .welcome-card { padding: 20px; }
+    .welcome-card h2 { font-size: 1.2rem; }
+
+    .dashboard-grid { grid-template-columns: 1fr; }
+    .courses-grid   { grid-template-columns: 1fr; }
+
+    .container {
+        margin: 24px 16px;
+        padding: 24px 20px;
+    }
+
+    .profile-section { padding: 18px; }
+
+    .data-table { font-size: 0.8rem; }
+    .data-table th, .data-table td { padding: 9px 10px; }
+}
