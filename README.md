@@ -1,0 +1,3 @@
+This is a project on school portal. It works likea proper school portal where student can register for their courses, submit assignments, edit their profile and check their results.
+The lecturer can see all the students under them and only students that are assigned under the lecturers can take the course(s). The lecturer can view all their students assignments and grade them. They can also upload their student result too
+The admin's job is to supervise all that is happening in the portal. The admin is the one to assign each student to their lecturer and is the one to create course and assign them to each lecturer. The admi  will also trigger release of result for the student to check it too
